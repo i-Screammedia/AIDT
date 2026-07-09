@@ -19,10 +19,10 @@
       <nav class="top-nav__menu" aria-label="주요 메뉴">
         <a href="#adoption">채택 현황</a>
         <a href="#reviews">사용 후기</a>
-        <a href="#experience">무료 체험</a>
         <a href="#features">주요 기능</a>
-        <a href="#convenience">편의 기능</a>
-        <a href="#notice">안내 사항</a>
+        <a href="#teacher-video">선생님 영상</a>
+        <a href="#experience">무료 체험</a>
+        <a href="#contract-cta">도입 문의</a>
       </nav>
       <a href="https://aidt.i-scream.co.kr/contract" class="button-primary" target="_blank" rel="noopener noreferrer">도입 문의 남기기</a>
       <button class="top-nav__hamburger" aria-label="메뉴 열기" aria-expanded="false">
@@ -274,6 +274,75 @@
             <li>안내 영상 및 매뉴얼 제공</li>
             <li>문항 오류 접수 버튼 추가</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 선생님 영상 -->
+    <section class="section section--soft" id="teacher-video">
+      <div class="container">
+        <p class="section-label">VIDEO</p>
+        <h2 class="section-title">실제 사용하시는 선생님 영상</h2>
+        <p class="teacher-video__lead">아이스크림 AI 디지털 교육자료 활용 방법을 선생님께서 영상으로 안내합니다.</p>
+
+        <div class="teacher-video" data-teacher-video-tabs>
+          <ul class="teacher-video__tabs" role="tablist" aria-label="선생님 영상 탭">
+            <li>
+              <button
+                type="button"
+                class="teacher-video__tab is-active"
+                role="tab"
+                aria-selected="true"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/lesson.mp4"
+              >
+                수업
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="teacher-video__tab"
+                role="tab"
+                aria-selected="false"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/assessment_manage.mp4"
+              >
+                평가 관리
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="teacher-video__tab"
+                role="tab"
+                aria-selected="false"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/assignment_manage.mp4"
+              >
+                과제 관리
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="teacher-video__tab"
+                role="tab"
+                aria-selected="false"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/ai_class_report.mp4"
+              >
+                AI 학급 리포트
+              </button>
+            </li>
+          </ul>
+
+          <div class="teacher-video__player" aria-label="선생님 영상 플레이어">
+            <video
+              class="teacher-video__video"
+              controls
+              playsinline
+              preload="metadata"
+              title="실제 사용하시는 선생님 영상"
+              src="https://cdn.smart-aidt.com/file/manual/2026/lesson.mp4"
+            ></video>
+          </div>
         </div>
       </div>
     </section>

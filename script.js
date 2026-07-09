@@ -974,6 +974,38 @@ document.querySelectorAll('.review-more-btn').forEach((btn) => {
 reviewModalClose?.addEventListener('click', closeReviewModal);
 reviewModalBackdrop?.addEventListener('click', closeReviewModal);
 
+// ── 선생님 영상 탭 ──
+const teacherVideoTabs = document.querySelector('[data-teacher-video-tabs]');
+
+if (teacherVideoTabs) {
+  const tabButtons = teacherVideoTabs.querySelectorAll('.teacher-video__tab');
+  const videoEl = teacherVideoTabs.querySelector('.teacher-video__video');
+
+  function applyTeacherVideoTab(button) {
+    const cdnSrc = (button.dataset.cdnSrc || '').trim();
+    if (!videoEl || !cdnSrc) return;
+
+    videoEl.pause();
+    if (videoEl.getAttribute('src') !== cdnSrc) {
+      videoEl.src = cdnSrc;
+    }
+    videoEl.load();
+  }
+
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach((btn) => {
+        btn.classList.remove('is-active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      button.classList.add('is-active');
+      button.setAttribute('aria-selected', 'true');
+      applyTeacherVideoTab(button);
+    });
+  });
+}
+
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
 

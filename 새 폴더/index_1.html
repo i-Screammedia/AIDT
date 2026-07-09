@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI 디지털 교육자료를 기간 한정 무료로 이용할 수 있는 이벤트입니다." />
+  <title>AI 디지털 교육자료 무료 사용 이벤트</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#F54F00', hover: '#E04800', light: '#FFF4EE' },
+            gray: { 50: '#FAFAFA', 100: '#F5F5F5', 200: '#EEEEEE', 300: '#E0E0E0', 400: '#BDBDBD', 500: '#9E9E9E', 600: '#757575', 700: '#616161', 800: '#424242', 900: '#212121' }
+          },
+          fontFamily: { 'pretendard': ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+
+    /* Noise texture overlay */
+    .noise-overlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Video player aspect ratio */
+    .video-wrapper { position: relative; padding-top: 56.25%; }
+    .video-wrapper iframe, .video-wrapper video {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+    .video-wrapper video { object-fit: contain; background: #000; }
+    .is-hidden { display: none !important; }
+
+    /* Gift badge starburst */
+    .gift-burst { animation: pulse-burst 2.5s ease-in-out infinite; }
+    @keyframes pulse-burst {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.06) rotate(3deg); }
+    }
+
+    /* Floating menu glassmorphism */
+    .glass-menu {
+      backdrop-filter: blur(16px) saturate(1.6);
+      -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    }
+
+    /* Tab active state */
+    .tab-btn.is-active {
+      background-color: #F54F00 !important;
+      color: #fff !important;
+      border-color: #F54F00 !important;
+    }
+
+    /* FAQ accordion (<details>) */
+    details.faq-cat > summary.faq-cat-summary { list-style: none; }
+    details.faq-cat > summary.faq-cat-summary::-webkit-details-marker { display: none; }
+    details.faq-cat[open] > summary.faq-cat-summary .faq-chevron { transform: rotate(180deg); }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-primary-light via-white to-primary-light text-gray-900 antialiased">
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <div class="relative z-[1]">
+    <main>
+      <!-- ========== HERO ========== -->
+      <section class="relative w-full overflow-hidden" aria-labelledby="hero-title">
+        <!-- Hero gradient backdrop -->
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100" aria-hidden="true"></div>
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary/5 to-transparent" aria-hidden="true"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/3" aria-hidden="true"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 pt-4 pb-16 text-center">
+          <!-- Brand logo -->
+          <a href="https://aidt.i-scream.co.kr/" class="inline-flex items-center mb-8" aria-label="아이스크림 AI 디지털 교육자료 홈페이지 바로가기">
+            <img
+              src="images/i-screammedia-logo.png"
+              width="200" height="56"
+              alt="i-Screammedia"
+              decoding="async"
+              class="w-[clamp(120px,18vw,160px)] h-auto drop-shadow-md"
+            />
+          </a>
+
+          <!-- Rank badge -->
+          <div class="mx-auto mb-5 max-w-[min(240px,55vw)]">
+            <img
+              src="images/rank-1-hero-nobg-cropped.png"
+              width="637" height="394"
+              alt="1위"
+              decoding="async"
+              class="w-full h-auto block mx-auto"
+            />
+          </div>
+
+          <!-- Tagline -->
+          <p class="text-[clamp(0.9rem,3.5vw,1.3rem)] font-medium text-gray-600 tracking-tight mb-4 whitespace-nowrap">
+            1위 교과서 아이스크림이 만든 AI 디지털 교육자료는 다릅니다.
+          </p>
+
+          <!-- Main title -->
+          <h1 id="hero-title" class="mb-5">
+            <span class="block text-[clamp(2.2rem,6vw,3.4rem)] font-[900] tracking-tighter leading-[1.15]">
+              <span class="text-primary">AI 디지털</span> <span class="text-primary">교육자료</span>
+            </span>
+            <span class="block text-[clamp(2.2rem,6vw,3.4rem)] font-[900] tracking-tighter leading-[1.15] text-primary mt-1">
+              수학<span class="text-[0.5em] align-middle">&bull;</span>영어 3~6학년
+            </span>
+            <span class="block text-[clamp(1.6rem,4.2vw,2.4rem)] font-extrabold text-gray-800 mt-3 tracking-tight">
+              지금 무료로 써보세요
+            </span>
+          </h1>
+
+          <!-- Lead text -->
+          <p class="max-w-xl mx-auto text-gray-500 text-lg leading-relaxed mb-8">
+            수업 설계부터 과제 출제까지, AI가 함께하는 디지털 교육 콘텐츠를<br class="hidden sm:inline" />
+            이벤트 기간 동안 제한 없이 이용할 수 있습니다.
+          </p>
+
+          <!-- Period dates -->
+          <div class="mb-6" aria-label="이벤트 접수 기간">
+            <div class="inline-flex flex-col items-center bg-white/80 backdrop-blur rounded-2xl px-8 py-5 shadow-lg border border-primary/10">
+              <p class="text-[clamp(1.8rem,4.8vw,2.6rem)] font-[900] text-primary tracking-tight m-0">접수 기간</p>
+              <p class="text-[clamp(1.1rem,2.8vw,1.7rem)] font-bold text-gray-800 mt-1 m-0">4월 6일 (월) ~ 4월 16일 (목)</p>
+            </div>
+          </div>
+
+          <!-- Usage period -->
+          <div class="mb-4">
+            <div class="inline-flex flex-col items-center bg-white/80 backdrop-blur rounded-2xl px-8 py-5 shadow-lg border border-primary/10">
+              <p class="text-[clamp(1.8rem,4.8vw,2.6rem)] font-[900] text-primary tracking-tight m-0">무료 사용 기간</p>
+              <p class="text-[clamp(1.1rem,2.8vw,1.7rem)] font-bold text-gray-800 mt-1 m-0">4월 20일 (월) ~ 5월 15일 (금)</p>
+            </div>
+          </div>
+
+          <!-- Note (중요 안내) -->
+          <div class="max-w-3xl mx-auto mt-5 rounded-xl border border-primary/25 border-l-4 border-l-primary bg-gradient-to-br from-orange-50 to-amber-50 px-5 py-4 sm:px-6 sm:py-5 shadow-md text-center" role="note" aria-label="무료 사용 기간 종료 및 연락 안내">
+            <p class="m-0 text-[0.88rem] sm:text-[0.95rem] font-bold text-gray-800 leading-relaxed">
+              무료 사용 기간 후 바로 닫히게 되니, 학습 데이터 유지 및 계속 사용을 원하시는 학교는<br />
+              <span class="text-primary font-[900] text-[1.02em] sm:text-[1.05em]">5/15일까지</span> 계약 담당자에게 <span class="text-primary font-[900]">연락을 주세요.</span> 계속 사용할 수 있도록 처리해 드립니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== GIFT / BENEFITS ========== -->
+      <section id="benefits" class="relative overflow-hidden py-12 px-6" aria-label="이벤트 혜택">
+        <!-- Purple gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900" aria-hidden="true"></div>
+        <div class="absolute top-0 left-0 w-[60%] h-[60%] bg-gradient-to-br from-pink-400/20 to-transparent rounded-full blur-3xl -translate-x-1/4 -translate-y-1/4" aria-hidden="true"></div>
+        <div class="absolute bottom-0 right-0 w-[50%] h-[50%] bg-gradient-to-tl from-indigo-400/15 to-transparent rounded-full blur-3xl translate-x-1/4 translate-y-1/4" aria-hidden="true"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-purple-500/10 via-white/5 to-purple-500/10 rounded-full blur-2xl" aria-hidden="true"></div>
+
+        <!-- Gift card -->
+        <div class="relative z-10 max-w-sm mx-auto">
+          <!-- Badge burst -->
+          <div class="absolute -top-3 -right-3 z-20 translate-x-3 sm:translate-x-4">
+            <div class="relative w-20 h-20 gift-burst" role="img" aria-label="선착순 500명">
+              <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-lg" aria-hidden="true" focusable="false">
+                <path fill="#2fe8df" d="M60 12Q72.25 30.44 93.94 26.06Q89.56 47.75 108 60Q89.56 72.25 93.94 93.94Q72.25 89.56 60 108Q47.75 89.56 26.06 93.94Q30.44 72.25 12 60Q30.44 47.75 26.06 26.06Q47.75 30.44 60 12Z" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center pt-1" aria-hidden="true">
+                <span class="text-[0.58rem] font-[900] text-purple-900 tracking-wide">선착순</span>
+                <span class="text-[1.05rem] font-[900] text-purple-900 tracking-tighter mt-0.5">500명</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="rounded-2xl overflow-visible shadow-2xl">
+            <!-- Header -->
+            <div class="bg-white rounded-t-2xl px-6 py-5 text-center shadow-sm">
+              <h3 class="text-[clamp(2rem,6.4vw,2.4rem)] font-[900] tracking-tight bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+                무료 사용 신청 혜택
+              </h3>
+            </div>
+            <!-- Body -->
+            <div class="bg-gradient-to-b from-purple-500 to-purple-700 rounded-b-2xl px-6 py-8 text-center shadow-inner">
+              <div class="w-[min(168px,52vw)] h-[min(168px,52vw)] mx-auto rounded-full bg-white/20 grid place-items-center p-3 shadow-inner">
+                <div class="w-full h-full flex items-center justify-center">
+                  <img src="images/gift01.png" alt="스타벅스 기프티콘 혜택" class="w-full h-full max-h-[140px] object-contain drop-shadow-md" />
+                </div>
+              </div>
+              <p class="mt-5 text-[clamp(0.85rem,2.5vw,1rem)] font-medium text-white/95 leading-relaxed">
+                무료 사용 신청만 하셔도<br />
+                스타벅스 기프티콘을 드립니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== FREE APPLY (신청 방법) ========== -->
+      <section class="max-w-5xl mx-auto px-6 py-14" id="free-apply" aria-labelledby="free-apply-title">
+        <!-- Simple divider -->
+        <div class="flex items-center justify-center gap-3 mb-8" aria-hidden="true">
+          <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-transparent to-primary/30"></div>
+          <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+          <div class="w-3 h-3 rounded-full border-2 border-primary/30"></div>
+          <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+          <div class="h-px flex-1 max-w-[120px] bg-gradient-to-l from-transparent to-primary/30"></div>
+        </div>
+
+        <h2 class="text-[clamp(2rem,5.2vw,3rem)] font-[900] text-primary tracking-tight text-center mb-10" id="free-apply-title">
+          무료 사용 신청 방법
+        </h2>
+
+        <!-- Step 1 -->
+        <div class="mb-8 text-center">
+          <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+            STEP 1
+          </span>
+          <div class="mt-4 flex flex-col items-center gap-3">
+            <a
+              href="https://aidt.i-scream.co.kr/contract"
+              class="inline-flex items-center justify-center px-8 py-3.5 sm:py-4 min-h-[3rem] rounded-full text-white text-[clamp(0.95rem,2.5vw,1.15rem)] font-[900] bg-primary hover:bg-primary-hover shadow-lg hover:shadow-xl active:scale-[0.98] transition-all no-underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >무료 사용 신청하기</a>
+            <p class="m-0 max-w-lg mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed text-center px-2">
+              무료 사용 신청을 원하시는 선생님들은 위 버튼을 누르세요.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="mb-8 text-center">
+          <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+            STEP 2
+          </span>
+          <p class="mt-4 text-[clamp(1rem,2.4vw,1.2rem)] font-[900] text-gray-800 tracking-tight">
+            정보 입력하기
+          </p>
+          <p class="mt-2 max-w-lg mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed">
+            무료 사용 신청하기 클릭 후 연결되는 페이지를 작성해주세요.
+          </p>
+
+          <!-- Highlight box -->
+          <div class="mt-4 max-w-lg mx-auto bg-gradient-to-br from-orange-50 to-amber-50 border border-primary/20 border-l-4 border-l-primary rounded-xl px-5 py-5 shadow-md text-center" role="note" aria-label="성함 입력 시 필수 안내">
+            <p class="flex items-center justify-center gap-2.5 text-primary font-[900] text-[clamp(1.25rem,3.8vw,1.55rem)] tracking-tight mb-4">
+              <span aria-hidden="true" class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" class="w-7 h-7 sm:w-8 sm:h-8 shrink-0" focusable="false">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                </svg>
+              </span>
+              필수 확인
+            </p>
+            <!-- 성함 입력란 예시 (첨부 스크린샷과 동일 구성) -->
+            <div class="mb-4 mx-auto max-w-[min(100%,320px)] text-left">
+              <div class="relative inline-block">
+                <span class="font-bold text-gray-900 text-[0.95rem] sm:text-base">성함</span>
+                <span class="absolute -top-0.5 -right-2.5 w-1.5 h-1.5 rounded-full bg-red-500" aria-hidden="true"></span>
+                <span class="sr-only">필수 입력</span>
+              </div>
+              <div class="mt-2 rounded-xl border-2 border-gray-900 bg-white px-4 py-3 shadow-md text-left text-[0.95rem] sm:text-base font-medium text-gray-900 tracking-tight" aria-hidden="true">
+                [무료 사용] 홍길동<span class="inline-block w-px h-[1.1em] ml-px bg-gray-800 align-[-0.15em]" aria-hidden="true"></span>
+              </div>
+            </div>
+            <p class="text-[0.95rem] font-bold text-gray-700 leading-relaxed">
+              성함 부분을 작성할 때 이름 앞에 <strong class="text-primary font-[900]">[무료 사용]</strong>이라고 함께 입력해주세요.
+            </p>
+            <p class="mt-4 mb-0 text-[0.95rem] font-semibold text-gray-800 leading-relaxed">
+              예시: <span class="text-primary font-[900]">[무료 사용] 홍길동</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+            STEP 3
+          </span>
+          <p class="mt-4 text-[clamp(1rem,2.4vw,1.2rem)] font-[900] text-gray-800 tracking-tight">
+            아이스크림 계약 담당자와 연락
+          </p>
+          <p class="mt-2 max-w-xl mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed">
+            무료 사용 신청을 완료하신 분들에게 순차적으로 연락을 드리며, 통화가 완료될 경우<br />KERIS 통합 포털(<a href="https://www.aidtbook.kr/index.do" class="text-primary font-[900] underline underline-offset-2 decoration-2 hover:text-primary-hover transition-colors" target="_blank" rel="noopener noreferrer">www.aidtbook.kr</a>)에서 바로 사용할 수 있도록 처리해드립니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== HOW TO USE (사용 방법) ========== -->
+      <section id="how" class="max-w-5xl mx-auto px-6 py-14" aria-labelledby="how-title">
+        <!-- Simple divider -->
+        <div class="flex items-center justify-center gap-3 mb-8" aria-hidden="true">
+          <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-transparent to-primary/30"></div>
+          <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+          <div class="w-3 h-3 rounded-full border-2 border-primary/30"></div>
+          <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+          <div class="h-px flex-1 max-w-[120px] bg-gradient-to-l from-transparent to-primary/30"></div>
+        </div>
+
+        <div class="text-center mb-10">
+          <h2 id="how-title" class="text-[clamp(2rem,5.2vw,3rem)] font-[900] text-primary tracking-tight mb-3">사용 방법</h2>
+          <p class="text-gray-500 text-base max-w-2xl mx-auto">아이스크림미디어 계약 담당자와 통화 완료 후 무료 사용 승인 처리가 되면 아래 순서대로 진행하시면 됩니다.</p>
+        </div>
+
+        <div class="space-y-0">
+          <!-- Step 1 -->
+          <div class="mb-8 text-center">
+            <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+              STEP 1
+            </span>
+            <h3 class="mt-4 text-[clamp(1rem,2.4vw,1.2rem)] font-[900] text-gray-800 tracking-tight">교육 디지털 원패스 계정과 사전 준비</h3>
+            <p class="mt-2 max-w-2xl mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed px-2">
+              교육 디지털 원패스 계정을 준비하고, 안내에 따라 사전 연동·설정을 완료한 뒤 다음 단계를 진행해 주세요.
+            </p>
+            <img src="images/pass-guide.png" alt="교육 디지털 원패스 안내" class="mt-4 mx-auto w-full max-w-md rounded-xl border border-gray-200 bg-white shadow-sm" />
+          </div>
+
+          <!-- Step 2 -->
+          <div class="mb-20 sm:mb-24 text-center">
+            <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+              STEP 2
+            </span>
+            <h3 class="mt-4 text-[clamp(1rem,2.4vw,1.2rem)] font-[900] text-gray-800 tracking-tight">AI 디지털 교육자료 포털 접속</h3>
+            <ul class="mt-2 max-w-2xl mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed list-none p-0 space-y-2 px-2">
+              <li>· 교육 디지털 원패스 계정으로 접속해주세요.</li>
+              <li>· 나이스에 학년/학기/시간표 등이 설정되어 있으면 포털에 동일하게 반영됩니다.</li>
+              <li>· 포털 및 AI 디지털 교육자료 통합 동의를 진행합니다. (포털 및 모든 교육자료 한번에 동의)</li>
+            </ul>
+            <div class="mt-4 flex justify-center">
+              <a href="https://www.aidtbook.kr/index.do" class="inline-flex flex-col items-center justify-center gap-0.5 px-7 py-3 rounded-full font-[800] text-white text-sm tracking-tight text-center leading-snug bg-primary hover:bg-primary-hover shadow-lg hover:shadow-xl active:scale-[0.98] transition-all" target="_blank" rel="noopener noreferrer">
+                <span class="block">AI 디지털 교육자료 포털</span>
+                <span class="block">사이트로 이동하기</span>
+              </a>
+            </div>
+            <img src="portal.png" alt="AI 디지털 교육자료 포털 안내" class="mt-4 mx-auto w-full max-w-md rounded-xl border border-gray-200 bg-white shadow-sm" />
+          </div>
+
+          <!-- Step 3 -->
+          <div class="pt-12 sm:pt-16 mb-20 sm:mb-28 text-center">
+            <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+              STEP 3
+            </span>
+            <h3 class="mt-4 text-[clamp(1rem,2.4vw,1.2rem)] font-[900] text-gray-800 tracking-tight">아이스크림 AI 디지털 교육자료 무료로 사용하기</h3>
+            <ul class="mt-2 max-w-2xl mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed list-none p-0 space-y-2 px-2">
+              <li>· 4월 20일 (월)부터 5월 15일 (금)까지 AI 디지털 교육자료의 모든 기능을 제한 없이 학교 수업에서 사용하세요.</li>
+              <li>· 아이스크림 AI 디지털 교육자료에 대한 상세한 안내는 아래 홈페이지 버튼을 클릭하여<br />"사용 매뉴얼" 영상과 "퀵가이드" 영상을 확인하세요.</li>
+            </ul>
+            <div class="mt-6 flex justify-center pb-2">
+              <a href="https://aidt.i-scream.co.kr/" class="inline-flex items-center justify-center px-6 py-3 rounded-full font-[800] text-white text-sm tracking-tight bg-primary hover:bg-primary-hover shadow-lg hover:shadow-xl active:scale-[0.98] transition-all" target="_blank" rel="noopener noreferrer">
+                아이스크림 AI 디지털 교육자료 홈페이지
+              </a>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="pt-12 sm:pt-16 text-center">
+            <span class="inline-block px-5 py-2 rounded-full bg-gray-900 text-white font-[900] text-sm tracking-widest uppercase shadow-md">
+              STEP 4
+            </span>
+            <h3 class="mt-4 text-[clamp(1rem,2.4vw,1.2rem)] font-[900] text-gray-800 tracking-tight">정식 계약 진행하기</h3>
+            <div class="mt-4 max-w-2xl mx-auto rounded-xl border border-primary/25 border-l-4 border-l-primary bg-gradient-to-br from-orange-50 to-amber-50 px-5 py-4 sm:px-6 sm:py-5 shadow-md text-center" role="note" aria-label="무료 사용 기간 종료 및 연락 안내">
+              <p class="m-0 text-[0.95rem] font-bold text-gray-800 leading-relaxed">
+                · 무료 사용 기간 후 바로 닫히게 되니, 학습 데이터 유지 및 계속 사용을 원하시는 학교는<br />
+                <span class="text-primary font-[900] text-[1.05em]">5/15일까지</span> 계약 담당자에게 <span class="text-primary font-[900]">연락을 주세요.</span> 계속 사용할 수 있도록 처리해 드립니다.
+              </p>
+            </div>
+            <ul class="mt-4 max-w-2xl mx-auto text-gray-500 text-[0.95rem] font-medium leading-relaxed list-none p-0 space-y-2 px-2">
+              <li>· 이후 정식 계약이 진행된 학교는 특별한 혜택을 추가로 드립니다.</li>
+              <li>· 연락처는 본 페이지 하단을 참고해 주세요.</li>
+            </ul>
+
+            <!-- Addendum box -->
+            <div class="mt-5 max-w-2xl mx-auto bg-gray-50 rounded-xl p-5 text-center">
+              <p class="text-[0.92rem] font-medium text-gray-800 leading-relaxed mb-4">
+                학교운영위원회 심의에 필요한 학습지원 소프트웨어 선정 관련 문서는 아래에서 다운로드 받으세요.
+              </p>
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="files/elementary-form.zip" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-bold text-white text-sm bg-primary hover:bg-primary-hover shadow-md hover:shadow-lg active:scale-[0.98] transition-all" download="elementary-form.zip">양식 다운로드(초등)</a>
+              </div>
+
+              <div class="mt-4 pt-4 border-t border-gray-200">
+                <p class="text-[0.92rem] font-medium text-gray-800 leading-relaxed mb-4">
+                  AI 디지털 교육자료 사용을 위한 개인 정보 동의 관련 문서는 아래에서 다운로드 받으세요.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                  <a href="files/개인정보동의서양식.zip" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-bold text-white text-sm bg-primary hover:bg-primary-hover shadow-md hover:shadow-lg active:scale-[0.98] transition-all" download="개인정보동의서양식.zip">개인 정보 동의 양식</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== TEACHER VIDEO ========== -->
+      <section id="teacher-video" class="max-w-5xl mx-auto px-6 py-14" aria-labelledby="teacher-video-title">
+        <!-- Simple divider -->
+        <div class="flex items-center justify-center gap-3 mb-8" aria-hidden="true">
+          <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-transparent to-primary/30"></div>
+          <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+          <div class="w-3 h-3 rounded-full border-2 border-primary/30"></div>
+          <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+          <div class="h-px flex-1 max-w-[120px] bg-gradient-to-l from-transparent to-primary/30"></div>
+        </div>
+
+        <div class="text-center mb-8">
+          <h2 id="teacher-video-title" class="text-[clamp(2rem,5.2vw,3rem)] font-[900] text-primary tracking-tight mb-3">실제 사용하시는 선생님 영상</h2>
+          <p class="text-gray-500 text-base max-w-xl mx-auto">아이스크림 AI 디지털 교육자료 활용 방법을 선생님께서 영상으로 안내합니다.</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto" data-teacher-video-tabs>
+          <!-- Tabs -->
+          <ul class="flex gap-3 justify-center flex-wrap mb-5 p-0 list-none" role="tablist" aria-label="선생님 영상 탭">
+            <li>
+              <button
+                type="button"
+                class="tab-btn is-active border border-gray-200 bg-white text-gray-800 rounded-full px-5 py-3 text-base font-[800] cursor-pointer transition-all duration-200 hover:border-primary/40 hover:bg-primary-light"
+                role="tab"
+                aria-selected="true"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/lesson.mp4"
+                data-video-url="https://www.youtube.com/embed/uPK6sxrHEk0?start=30&autoplay=1"
+              >
+                수업
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="tab-btn border border-gray-200 bg-white text-gray-800 rounded-full px-5 py-3 text-base font-[800] cursor-pointer transition-all duration-200 hover:border-primary/40 hover:bg-primary-light"
+                role="tab"
+                aria-selected="false"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/assessment_manage.mp4"
+                data-poster="images/평가 관리.png"
+                data-video-url="https://www.youtube.com/embed/uPK6sxrHEk0?start=60&autoplay=1"
+              >
+                평가 관리
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="tab-btn border border-gray-200 bg-white text-gray-800 rounded-full px-5 py-3 text-base font-[800] cursor-pointer transition-all duration-200 hover:border-primary/40 hover:bg-primary-light"
+                role="tab"
+                aria-selected="false"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/assignment_manage.mp4"
+                data-poster="images/과제 관리.png"
+                data-video-url="https://www.youtube.com/embed/uPK6sxrHEk0?start=90&autoplay=1"
+              >
+                과제 관리
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="tab-btn border border-gray-200 bg-white text-gray-800 rounded-full px-5 py-3 text-base font-[800] cursor-pointer transition-all duration-200 hover:border-primary/40 hover:bg-primary-light"
+                role="tab"
+                aria-selected="false"
+                data-cdn-src="https://cdn.smart-aidt.com/file/manual/2026/ai_class_report.mp4"
+                data-poster="images/AI 학급 리포트.png"
+                data-video-url="https://www.youtube.com/embed/uPK6sxrHEk0?start=120&autoplay=1"
+              >
+                AI 학급 리포트
+              </button>
+            </li>
+          </ul>
+
+          <!-- Video player -->
+          <div class="video-wrapper rounded-2xl overflow-hidden border border-gray-200 shadow-xl bg-black" aria-label="선생님 영상 플레이어">
+            <iframe
+              title="실제 사용하시는 선생님 영상"
+              src="https://www.youtube.com/embed/uPK6sxrHEk0?start=30"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <video
+              class="teacher-video-player__video is-hidden"
+              controls
+              playsinline
+              preload="metadata"
+              title="실제 사용하시는 선생님 영상"
+            ></video>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== FAQ ========== -->
+      <section id="faq" class="max-w-5xl mx-auto px-6 pb-12" aria-labelledby="faq-title">
+        <h2 id="faq-title" class="text-lg font-[900] text-gray-900 tracking-tight mb-4">자주 묻는 질문</h2>
+        <div class="border-t border-gray-200 text-left">
+          <details class="faq-cat border-b border-gray-200">
+            <summary class="faq-cat-summary flex w-full cursor-pointer select-none items-center justify-between gap-3 py-4 text-left text-sm font-[900] text-gray-800 transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 rounded-sm">
+              <span>신청 자격·대상</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-chevron h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="divide-y divide-gray-200 border-t border-gray-200">
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">어떤 학교(또는 누구)가 이번 무료 사용 이벤트에 신청할 수 있나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">본 이벤트는 학교에서 아이스크림 AI 디지털 교육자료를 도입·이용해 보시는 것을 전제로 합니다. 본 페이지에 안내된 초등 수학·영어 3~6학년 대상에 맞는 학교에서 신청하실 수 있으며, 학교 단위 적용 여부·세부 조건은 신청 후 아이스크림 계약 담당자 안내를 확인해 주시기 바랍니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">수학·영어 3~6학년만 해당인가요, 다른 학년·과목은 포함되나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">현재 본 이벤트 페이지에는 수학·영어 3~6학년으로 안내되어 있습니다. 다른 학년·과목 포함 여부는 학교 상황과 정책에 따라 달라질 수 있으니, <a href="#contact" class="text-primary font-medium underline underline-offset-2 hover:text-primary-hover">사용 계약 문의</a> 또는 신청 후 연결되는 담당자에게 문의해 주시기 바랍니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">이미 아이스크림 AI 디지털 교육자료를 쓰는 학교도 신청할 수 있나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">이벤트는 신규 체험·도입을 돕기 위한 목적이 강합니다. 이미 이용 중이신 학교의 경우에도 페이지 하단 연락처로 문의해 주시면, 현재 계약·이용 형태에 맞는 안내를 드릴 수 있습니다.</p>
+            </div>
+          </article>
+            </div>
+          </details>
+          <details class="faq-cat border-b border-gray-200">
+            <summary class="faq-cat-summary flex w-full cursor-pointer select-none items-center justify-between gap-3 py-4 text-left text-sm font-[900] text-gray-800 transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 rounded-sm">
+              <span>기간·이용</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-chevron h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="divide-y divide-gray-200 border-t border-gray-200">
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">접수 기간과 무료 사용 기간이 정확히 언제부터 언제까지인가요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">접수 기간은 <strong class="font-bold text-gray-700">4월 6일(월) ~ 4월 16일(목)</strong>, 무료 사용 기간은 <strong class="font-bold text-gray-700">4월 20일(월) ~ 5월 15일(금)</strong>으로 본 페이지 상단에 안내되어 있습니다. 변경이 있는 경우 페이지 또는 담당자 안내를 기준으로 해 주세요.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">무료 기간이 끝나면 바로 이용이 중단되나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">무료 사용 기간이 지나면 서비스가 바로 종료될 수 있습니다. 학습 데이터 유지 및 계속 이용을 원하시는 학교는 안내에 따라 <strong class="font-bold text-gray-700">5월 15일까지</strong> 계약 담당자에게 연락해 주시면 이후 절차를 안내해 드립니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">무료 기간 이후에도 쓰려면 어떻게 해야 하나요? (언제까지 연락해야 하나요?)</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">무료 기간 이후에도 이용을 이어가시려면 정식 계약 등 후속 절차가 필요합니다. 본 페이지 기준으로는 <strong class="font-bold text-gray-700">5월 15일까지</strong> 계약 담당자에게 연락을 주시면, 데이터 유지 및 계속 사용을 위한 처리를 도와드린다고 안내되어 있습니다. 구체적인 조건은 담당자와 상담 시 확인해 주세요.</p>
+            </div>
+          </article>
+            </div>
+          </details>
+          <details class="faq-cat border-b border-gray-200">
+            <summary class="faq-cat-summary flex w-full cursor-pointer select-none items-center justify-between gap-3 py-4 text-left text-sm font-[900] text-gray-800 transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 rounded-sm">
+              <span>신청 방법</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-chevron h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="divide-y divide-gray-200 border-t border-gray-200">
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">무료 사용 신청은 어디에서, 어떤 순서로 하면 되나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal"><strong class="font-bold text-gray-700">STEP 1.</strong> 본 페이지의 <a href="https://aidt.i-scream.co.kr/contract" class="text-primary font-medium underline underline-offset-2 hover:text-primary-hover" target="_blank" rel="noopener noreferrer">무료 사용 신청하기</a>를 눌러 신청 페이지로 이동합니다. <strong class="font-bold text-gray-700">STEP 2.</strong> 안내에 따라 정보를 입력합니다. <strong class="font-bold text-gray-700">STEP 3.</strong> 신청이 완료되면 아이스크림 계약 담당자가 순차적으로 연락드리며, 통화 등이 완료되면 KERIS 통합 포털(<a href="https://www.aidtbook.kr/index.do" class="text-primary font-medium underline underline-offset-2 hover:text-primary-hover" target="_blank" rel="noopener noreferrer">www.aidtbook.kr</a>)에서 이용할 수 있도록 처리해 드립니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">신청서에 이름을 적을 때 꼭 [무료 사용]을 붙여야 하나요? 안 붙이면 어떻게 되나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">표기가 없으면 이번 무료 이벤트 신청과 일반 문의가 구분되기 어려울 수 있으니, 반드시 포함해 주시는 것이 좋습니다. 이미 제출하신 뒤라면 담당자 연락 시 말씀해 주시면 확인에 도움이 됩니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">신청 후 담당자 연락은 얼마나 걸리나요? 순서는 어떻게 정해지나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">신청을 완료하신 분들께는 순차적으로 연락드립니다. 접수 건수·시기에 따라 연락까지 걸리는 시간은 달라질 수 있으니, 급하신 경우 페이지 하단 유선·이메일로 문의해 주시기 바랍니다.</p>
+            </div>
+          </article>
+            </div>
+          </details>
+          <details class="faq-cat border-b border-gray-200">
+            <summary class="faq-cat-summary flex w-full cursor-pointer select-none items-center justify-between gap-3 py-4 text-left text-sm font-[900] text-gray-800 transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 rounded-sm">
+              <span>승인·이용 시작</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-chevron h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="divide-y divide-gray-200 border-t border-gray-200">
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">담당자와 통화를 꼭 해야 하나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">본 페이지 안내에 따르면, 신청 후 담당자와 연락(통화)이 완료되어야 무료 사용 승인 처리 및 포털 이용 연동이 진행됩니다. 세부 절차는 담당자 안내를 따라 주시기 바랍니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">KERIS 통합 포털(www.aidtbook.kr)은 언제부터 쓸 수 있나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">통화 등 담당자와의 연락이 완료된 뒤, 무료 사용 승인 처리가 되면 <a href="https://www.aidtbook.kr/index.do" class="text-primary font-medium underline underline-offset-2 hover:text-primary-hover" target="_blank" rel="noopener noreferrer">KERIS 통합 포털</a>에서 바로 사용할 수 있도록 조치해 드립니다. 실제 오픈 시점은 학교별 처리 일정에 따라 달라질 수 있습니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">교육 디지털 원패스가 없으면 신청·이용이 어려운가요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">포털 이용을 위해서는 교육 디지털 원패스 계정과 사전 연동·설정이 필요합니다. 신청 자체가 원패스 없이 불가하다는 문구는 없으나, 실제 수업·포털 로그인을 위해서는 원패스 준비가 필요합니다. 학교 상황에 맞게 담당자·원패스 안내를 함께 확인해 주세요.</p>
+            </div>
+          </article>
+            </div>
+          </details>
+          <details class="faq-cat border-b border-gray-200">
+            <summary class="faq-cat-summary flex w-full cursor-pointer select-none items-center justify-between gap-3 py-4 text-left text-sm font-[900] text-gray-800 transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 rounded-sm">
+              <span>기술·운영</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-chevron h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="divide-y divide-gray-200 border-t border-gray-200">
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">나이스 학년·학기·시간표 설정이 포털에 어떻게 반영되나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">사용 방법 안내에 따르면, 나이스에 학년·학기·시간표 등이 설정되어 있으면 포털에 동일하게 반영될 수 있습니다. 반영 시점·방식은 시스템 연동 상태에 따라 달라질 수 있으니, 포털 화면과 담당자 안내를 함께 확인해 주세요.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">수업·평가·과제·AI 학급 리포트 등은 무료 기간 동안 제한 없이 쓸 수 있나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">본 페이지 사용 방법에는 무료 사용 기간(<strong class="font-bold text-gray-700">4월 20일~5월 15일</strong>) 동안 AI 디지털 교육자료의 기능을 <strong class="font-bold text-gray-700">학교 수업에서 제한 없이</strong> 이용하실 수 있다고 안내되어 있습니다. 세부 기능·정책은 서비스 약관 및 담당자 안내를 기준으로 해 주세요.</p>
+            </div>
+          </article>
+            </div>
+          </details>
+          <details class="faq-cat border-b border-gray-200">
+            <summary class="faq-cat-summary flex w-full cursor-pointer select-none items-center justify-between gap-3 py-4 text-left text-sm font-[900] text-gray-800 transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 rounded-sm">
+              <span>계약·서류</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-chevron h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="divide-y divide-gray-200 border-t border-gray-200">
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">학교운영위 심의용 양식·개인정보 동의 서류는 어디서 받나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">본 페이지 <a href="#how" class="text-primary font-medium underline underline-offset-2 hover:text-primary-hover">사용 방법</a>의 STEP 4(정식 계약 진행하기) 안내에 <strong class="font-bold text-gray-700">양식 다운로드(초등)</strong>, <strong class="font-bold text-gray-700">개인 정보 동의 양식</strong> 버튼이 있습니다. 해당 링크에서 압축 파일을 내려받으실 수 있습니다.</p>
+            </div>
+          </article>
+          <article class="py-5 px-0 sm:px-1">
+            <div class="flex gap-3 items-baseline">
+              <span class="flex-shrink-0 font-[900] text-gray-900 text-base" aria-hidden="true">Q</span>
+              <h3 class="m-0 flex-1 text-base font-bold text-gray-900 leading-snug">무료 사용만 하고 정식 계약은 안 해도 되나요?</h3>
+            </div>
+            <div class="flex gap-3 items-baseline mt-3">
+              <span class="flex-shrink-0 text-gray-400 text-sm font-normal pt-0.5" aria-hidden="true">A</span>
+              <p class="m-0 flex-1 text-[0.92rem] text-gray-500 leading-relaxed font-normal">무료 사용 기간 동안만 체험하시는 것은 가능합니다. 다만 기간 종료 후에도 학습 데이터를 유지하고 서비스를 계속 이용하시려면 정식 계약 등 후속 절차가 필요하다고 안내되어 있으니, 5월 15일까지 담당자에게 연락해 상담받으시기 바랍니다.</p>
+            </div>
+          </article>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- ========== CONTACT ========== -->
+      <section class="max-w-5xl mx-auto px-6 pb-20" id="contact" aria-labelledby="contact-title">
+        <h2 class="text-lg font-[900] text-gray-900 tracking-tight mb-4" id="contact-title">사용 계약 문의</h2>
+        <div class="bg-gray-100 rounded-2xl p-6 text-gray-900">
+          <!-- Phone -->
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 w-6 h-6 mt-0.5 text-purple-500" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </span>
+            <div>
+              <strong class="block font-bold text-[0.95rem] text-gray-900 mb-1">유선 문의</strong>
+              <p class="text-[0.9rem] text-gray-700 leading-relaxed m-0">
+                <a href="tel:0221848598" class="text-gray-700 no-underline hover:underline hover:text-primary transition-colors">02-2184-8598</a> | <a href="tel:0221848597" class="text-gray-700 no-underline hover:underline hover:text-primary transition-colors">02-2184-8597</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="my-4 border-t border-gray-200"></div>
+
+          <!-- Email -->
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 w-6 h-6 mt-0.5 text-purple-500" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </span>
+            <div>
+              <strong class="block font-bold text-[0.95rem] text-gray-900 mb-1">이메일 문의</strong>
+              <ul class="list-none p-0 m-0 space-y-1">
+                <li><a href="mailto:kds1603@i-screammedia.com" class="text-[0.9rem] text-gray-700 no-underline hover:underline hover:text-primary transition-colors">kds1603@i-screammedia.com</a></li>
+                <li><a href="mailto:gyrud1692@i-screammedia.com" class="text-[0.9rem] text-gray-700 no-underline hover:underline hover:text-primary transition-colors">gyrud1692@i-screammedia.com</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ========== FLOATING QUICK MENU ========== -->
+  <aside class="glass-menu fixed right-3 top-1/2 -translate-y-1/2 z-50 w-[120px] bg-white/85 border border-gray-300/40 rounded-2xl p-3 shadow-xl max-md:right-2 max-md:bottom-4 max-md:top-auto max-md:transform-none max-md:w-[104px] max-md:p-2.5" aria-label="바로가기 메뉴">
+    <ul class="list-none p-0 m-0 grid gap-3">
+      <li>
+        <a href="https://aidt.i-scream.co.kr/howtocontract" class="flex flex-col items-center gap-1.5 no-underline text-gray-800 text-[0.72rem] font-[800] leading-tight text-center hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">
+          <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 grid place-items-center text-white text-base shadow-sm" aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+          </span>
+          <span>우리학교<br />도입문의</span>
+        </a>
+      </li>
+      <li class="pt-3 border-t border-gray-200/60">
+        <a
+          href="https://www.youtube.com/watch?v=uPK6sxrHEk0&amp;list=PLPdWeq43TRgeKhnOaOwmdSSnooT7kJUzy&amp;index=5"
+          class="flex flex-col items-center gap-1.5 no-underline text-gray-800 text-[0.72rem] font-[800] leading-tight text-center hover:text-primary transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 grid place-items-center text-white text-base shadow-sm" aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span>퀵가이드<br />영상</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ========== TEACHER VIDEO TAB SCRIPT ========== -->
+  <script>
+    (function () {
+      var tabsRoot = document.querySelector("[data-teacher-video-tabs]");
+      if (!tabsRoot) return;
+
+      var buttons = tabsRoot.querySelectorAll(".tab-btn");
+      var iframe = tabsRoot.querySelector(".video-wrapper iframe");
+      var video = tabsRoot.querySelector(".teacher-video-player__video");
+      if (!buttons.length || !iframe || !video) return;
+
+      function encodePosterPath(posterPath) {
+        var slash = posterPath.lastIndexOf("/");
+        if (slash === -1) {
+          return encodeURIComponent(posterPath);
+        }
+        return posterPath.slice(0, slash + 1) + encodeURIComponent(posterPath.slice(slash + 1));
+      }
+
+      function applyTab(button) {
+        var embedUrl = button.getAttribute("data-video-url");
+        var cdnSrc = (button.getAttribute("data-cdn-src") || "").trim();
+        var poster = (button.getAttribute("data-poster") || "").trim();
+        if (cdnSrc) {
+          iframe.classList.add("is-hidden");
+          video.classList.remove("is-hidden");
+          if (poster) {
+            video.setAttribute("poster", encodePosterPath(poster));
+          } else {
+            video.removeAttribute("poster");
+          }
+          if (video.getAttribute("src") !== cdnSrc) {
+            video.src = cdnSrc;
+          }
+        } else {
+          if (!embedUrl) return;
+          video.pause();
+          video.removeAttribute("src");
+          video.removeAttribute("poster");
+          video.load();
+          video.classList.add("is-hidden");
+          iframe.classList.remove("is-hidden");
+          iframe.src = embedUrl;
+        }
+      }
+
+      var active = tabsRoot.querySelector(".tab-btn.is-active");
+      if (active) {
+        applyTab(active);
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          var embedUrl = button.getAttribute("data-video-url");
+          var cdnSrc = (button.getAttribute("data-cdn-src") || "").trim();
+          if (!cdnSrc && !embedUrl) return;
+
+          buttons.forEach(function (btn) {
+            btn.classList.remove("is-active");
+            btn.setAttribute("aria-selected", "false");
+          });
+
+          button.classList.add("is-active");
+          button.setAttribute("aria-selected", "true");
+          applyTab(button);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
